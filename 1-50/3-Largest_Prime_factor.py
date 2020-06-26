@@ -20,5 +20,19 @@ def main(test):
                 factor_list.append(prime)
     return factor_list[-1]
 
-print(main(test), analytics.lap(), analytics.maxMem())
+def main2(n):
+    pf = set([])
+    while n%2==0:
+        pf.add(2)
+        n //= 2
+    for i in range(3,int(n**(.5)),2):
+        while n % i == 0:
+            pf.add(i)
+            n //= i
+    if n > 1:
+        pf.add(n)
+    return sorted(list(pf))
+
+print(main(test), main2(test), analytics.lap(), analytics.maxMem())
     
+
