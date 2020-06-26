@@ -3,35 +3,33 @@ import random, math, pickle
 
 base_primes = [2, 3, 5, 7, 11, 13, 17, 19, 23]
 checked_primes = []
-filtered_check_primes = []
 
 filename = "primes"
 
 # checks to see if a prime file exists, creates one with base primes if it doesn't
-def run_base_primes(filename, base_primes):
+def load_primes(filename, base_primes):
     try:
         with open(f"{filename}.pickle", "rb") as f:
             # note this skips loading base primes if it exists
             primes = pickle.load(f)
             print("loaded")
     except (OSError, IOError) as e:
-        print("dump")
         primes = pickle.dump(base_primes, open(f"{filename}.pickle", "wb"))
-        print("dumped")
+        print("dumped base primes")
     return primes
 
-primes = run_base_primes(filename, base_primes)
+primes = load_primes(filename, base_primes)
 
-#
+# use inside prime checker to add primes to file
 def update_primes(found_prime, filename):
     with open(f"{filename}.pickle", "rb") as f:
         primes = pickle.load(f)
-        print("loaded previous primes")
+        # print("loaded previous primes")
         primes.append(found_prime)
-        print(primes)
+        # print(primes)
         with open(f"{filename}.pickle", "wb") as e:
             primes = pickle.dump(primes, e)
-            print("dumped, new prime list")
+            # print("dumped, new prime list")
 
 
 # Fermat Primality test
@@ -62,17 +60,20 @@ def ferm_primality_num(pot_prime, filename, primes):
         # print("pp, check, len(check):", pp, check, len(check))
         if len(check) > test_num-1:
             checked_primes.append(pp)
-            print(f"cheked all {len(check)} numbers...")
-            print(f"{pp} added to the list")
+            # print(f"cheked all {len(check)} numbers...")
+            # print(f"{pp} added to the list")
             update_primes(pp, filename)
             return True, "number is prime, added to the list"
         else:
             return False, "number is not prime"
 
+def add_primes(old_largest_prime, new_number):
+    for i in range(old_largest_prime, new_number):
+        ferm_primality_num(i, filename, primes)
 
-for i in range(3, 13195):
-    ferm_primality_num(i, filename, primes)
+# for i in range(3, 13195):
+#     ferm_primality_num(i, filename, primes)
 
-print(len(primes))
+# print(len(primes))
 
-print(ferm_primality_num(13195, filename, primes))
+# print(ferm_primality_num(13195, filename, primes))
