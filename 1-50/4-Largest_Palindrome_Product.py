@@ -20,7 +20,6 @@ def is_palindromic_num(number):
 # if {"b","a"} in set_list:
 #     print("good")
 
-
 # if {5,"f"} in set_list:
 #     print("good")
 
@@ -29,7 +28,6 @@ def is_palindromic_num(number):
 
 # if {23,"g"} in set_list:
 #     print("good")
-
 
 set_list = []
 prod = []
