@@ -1,5 +1,5 @@
 import random, math
-from helpers import fermat, analytics
+from helpers import prime_tests, analytics
 analytics.monitor()
 
 base_primes = [2, 3, 5, 7, 11, 13, 17, 19, 23]
@@ -13,7 +13,7 @@ test = 600851475143
 factor_list = []
 
 def main(test):
-    primes = fermat.load_primes(filename, base_primes)
+    primes = prime_tests.load_primes(filename, base_primes)
     for prime in primes:
         if test % prime == 0:
             if prime not in factor_list:

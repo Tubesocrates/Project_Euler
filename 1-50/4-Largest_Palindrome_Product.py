@@ -12,23 +12,6 @@ def is_palindromic_num(number):
         return True
     else: False
 
-# is_palindromic_num(5005)
-# is_palindromic_num(5004)
-# set examples
-# set_list = [{"a","b"}, {1,4}, {"f",5}]
-
-# if {"b","a"} in set_list:
-#     print("good")
-
-# if {5,"f"} in set_list:
-#     print("good")
-
-# set_list.append({"g", 23})
-# print(set_list)
-
-# if {23,"g"} in set_list:
-#     print("good")
-
 set_list = []
 prod = []
 palind = []
