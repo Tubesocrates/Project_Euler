@@ -11,7 +11,7 @@ filename = "primes"
 def load_primes(filename, base_primes):
     try:
         with open(f"{filename}.pickle", "rb") as f:
-            # note this skips loading base primes if it exists
+            #  this skips loading base primes if it exists
             primes = pickle.load(f)
             print("loaded")
     except (OSError, IOError) as e:
@@ -19,30 +19,26 @@ def load_primes(filename, base_primes):
         print("dumped base primes")
     return primes
 
+# loads primes from primes.pickle
 primes = load_primes(filename, base_primes)
 
-# use inside prime checker to add primes to file
-def update_primes(found_prime, filename):
+# use at end of run to add primes to file
+def update_primes(checked_primes, filename):
     with open(f"{filename}.pickle", "rb") as f:
         primes = pickle.load(f)
-        # print("loaded previous primes")
-        primes.append(found_prime)
-        # print(primes)
+        primes.extend(checked_primes)
+        primes.sort()
         with open(f"{filename}.pickle", "wb") as e:
             primes = pickle.dump(primes, e)
-            # print("dumped, new prime list")
 
 # Fermat Primality test
-def ferm_primality(pot_prime, filename, primes, rounds):
-    # loads primes from primes.pickle
+def fermat_primality(pot_prime, filename, primes, rounds):
     primes = primes
     pp = pot_prime
     # check prime list
     if pp in primes:
-        # print(f"number {pp} is already in list... next")
         return True, "number is prime"
     else:
-        # test it
         # number of tests
         test_num = rounds
         # choose test_num amount of numbers less than the pp, randomly
@@ -55,21 +51,17 @@ def ferm_primality(pot_prime, filename, primes, rounds):
         check = []
         for a in random_numbers:
             if math.gcd(a, pp) == 1:
-                if a**(pp-1) % pp == 1:
+                # if a**(pp-1) % pp == 1:
+                if pow(a, pp-1, pp) == 1:
                     check.append(a)
-        # print("pp, check, len(check):", pp, check, len(check))
         if len(check) > test_num-1:
             checked_primes.append(pp)
-            # print(f"cheked all {len(check)} numbers...")
-            # print(f"{pp} added to the list")
-            update_primes(pp, filename)
             return True, "number is prime, added to the list"
         else:
             return False, "number is not prime"
 
 #Miller-Rabin Primality Test
 def miller_rabin_primality(pot_prime, filename, primes, rounds):
-    # loads primes from primes.pickle
     primes = primes
     pp = pot_prime
     # check prime list
@@ -90,28 +82,39 @@ def miller_rabin_primality(pot_prime, filename, primes, rounds):
         # (20 chosen for high likelihood of being prime)
         check = []
         for a in random_numbers:
-            x = a**d % pp
-            if x = 1 or x = pp - 1:
+            # x = a**d % pp
+            x = pow(a,d,pp)
+            if x == 1 or x == pp - 1:
                 while len(check) < r - 1:
-                    x = x**2 % pp
+                    # x = x**2 % pp
+                    x = pow(x,2,pp)
                     check.append(x)
-                    if x = pp - 1:
+                    if x == pp - 1:
+                        pass
+                return False
+        return True
                         
 
 
-        # print("pp, check, len(check):", pp, check, len(check))
-        if len(check) > test_num-1:
-            checked_primes.append(pp)
-            # print(f"cheked all {len(check)} numbers...")
-            # print(f"{pp} added to the list")
-            update_primes(pp, filename)
-            return True, "number is prime, added to the list"
-        else:
-            return False, "number is not prime"
+        # # print("pp, check, len(check):", pp, check, len(check))
+        # if len(check) > test_num-1:
+        #     checked_primes.append(pp)
+        #     # print(f"cheked all {len(check)} numbers...")
+        #     # print(f"{pp} added to the list")
+        #     update_primes(pp, filename)
+        #     return True, "number is prime, added to the list"
+        # else:
+        #     return False, "number is not prime"
 
-def add_primes(old_largest_prime, new_number):
+def add_primes_fermat(old_largest_prime, new_number):
     for i in range(old_largest_prime, new_number):
-        ferm_primality(i, filename, primes, 20)
+        fermat_primality(i, filename, primes, 20)
+    update_primes(checked_primes, filename)
+
+def add_primes_M_R(old_largest_prime, new_number):
+    for i in range(old_largest_prime, new_number):
+        miller_rabin_primality(i, filename, primes, 20)
+    update_primes(checked_primes, filename)
 
 
 
