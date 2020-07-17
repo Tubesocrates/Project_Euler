@@ -32,3 +32,8 @@ def d_and_r_finder(x):
 
 print(d_and_r_finder(220))
 print(math.log2(2))
+
+for i in range(10):
+    if i%2==0:
+        continue
+    print(i)

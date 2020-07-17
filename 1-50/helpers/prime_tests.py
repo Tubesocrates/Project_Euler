@@ -1,5 +1,5 @@
 import random, math, pickle
-from helpers import analytics, mathys
+import analytics, mathys
 #time the function****
 
 base_primes = [2, 3, 5, 7, 11, 13, 17, 19, 23]
@@ -13,10 +13,10 @@ def load_primes(filename, base_primes):
         with open(f"{filename}.pickle", "rb") as f:
             #  this skips loading base primes if it exists
             primes = pickle.load(f)
-            print("loaded")
+            # print("loaded")
     except (OSError, IOError) as e:
         primes = pickle.dump(base_primes, open(f"{filename}.pickle", "wb"))
-        print("dumped base primes")
+        # print("dumped base primes")
     return primes
 
 # loads primes from primes.pickle
@@ -85,26 +85,15 @@ def miller_rabin_primality(pot_prime, filename, primes, rounds):
             # x = a**d % pp
             x = pow(a,d,pp)
             if x == 1 or x == pp - 1:
+                continue
                 while len(check) < r - 1:
                     # x = x**2 % pp
                     x = pow(x,2,pp)
                     check.append(x)
                     if x == pp - 1:
-                        pass
+                        continue
                 return False
         return True
-                        
-
-
-        # # print("pp, check, len(check):", pp, check, len(check))
-        # if len(check) > test_num-1:
-        #     checked_primes.append(pp)
-        #     # print(f"cheked all {len(check)} numbers...")
-        #     # print(f"{pp} added to the list")
-        #     update_primes(pp, filename)
-        #     return True, "number is prime, added to the list"
-        # else:
-        #     return False, "number is not prime"
 
 def add_primes_fermat(old_largest_prime, new_number):
     for i in range(old_largest_prime, new_number):
@@ -118,5 +107,5 @@ def add_primes_M_R(old_largest_prime, new_number):
 
 
 
-
+# print(miller_rabin_primality(479001599, filename, primes, 20))
 
