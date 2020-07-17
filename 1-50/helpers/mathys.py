@@ -30,10 +30,10 @@ def d_and_r_finder(x):
     return D[0], r[0]
 
 
-print(d_and_r_finder(220))
-print(math.log2(2))
+# print(d_and_r_finder(220))
+# print(math.log2(2))
 
-for i in range(10):
-    if i%2==0:
-        continue
-    print(i)
+# for i in range(10):
+#     if i%2==0:
+#         continue
+#     print(i)

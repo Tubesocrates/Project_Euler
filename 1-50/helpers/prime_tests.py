@@ -86,13 +86,13 @@ def miller_rabin_primality(pot_prime, filename, primes, rounds):
             x = pow(a,d,pp)
             if x == 1 or x == pp - 1:
                 continue
-                while len(check) < r - 1:
-                    # x = x**2 % pp
-                    x = pow(x,2,pp)
-                    check.append(x)
-                    if x == pp - 1:
-                        continue
-                return False
+            while len(check) < r - 1:
+                # x = x**2 % pp
+                x = pow(x,2,pp)
+                check.append(x)
+                if x == pp - 1:
+                    continue
+            return False
         return True
 
 def add_primes_fermat(old_largest_prime, new_number):
@@ -107,5 +107,6 @@ def add_primes_M_R(old_largest_prime, new_number):
 
 
 
-# print(miller_rabin_primality(479001599, filename, primes, 20))
+print(miller_rabin_primality(479001599, filename, primes, 20))
 
+print(miller_rabin_primality(1012356487, filename, primes, 100))
