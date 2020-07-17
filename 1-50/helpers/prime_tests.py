@@ -61,6 +61,7 @@ def fermat_primality(pot_prime, filename, primes, rounds):
             return False, "number is not prime"
 
 #Miller-Rabin Primality Test
+#cheats from Phyisis -> https://github.com/Phyisis
 def miller_rabin_primality(pot_prime, filename, primes, rounds):
     primes = primes
     pp = pot_prime
@@ -78,21 +79,20 @@ def miller_rabin_primality(pot_prime, filename, primes, rounds):
         for i in range(test_num):
             random_number = random.randint(2, pp-2)
             random_numbers.append(random_number)
-        # build checks, if the length of the checks is == to the test_num, then this number is likely prime 
-        # (20 chosen for high likelihood of being prime)
-        check = []
         for a in random_numbers:
-            # x = a**d % pp
+            # x = a**d % pp (changed for efficiency)
             x = pow(a,d,pp)
             if x == 1 or x == pp - 1:
                 continue
-            while len(check) < r - 1:
-                # x = x**2 % pp
+            y = True
+            for _ in range(r - 1):
+                # x = x**2 % pp (changed for efficiency)
                 x = pow(x,2,pp)
-                check.append(x)
                 if x == pp - 1:
-                    continue
-            return False
+                    y = False
+                    break
+            if c:
+                return False
         return True
 
 def add_primes_fermat(old_largest_prime, new_number):
@@ -110,3 +110,5 @@ def add_primes_M_R(old_largest_prime, new_number):
 print(miller_rabin_primality(479001599, filename, primes, 20))
 
 print(miller_rabin_primality(1012356487, filename, primes, 100))
+
+print(miller_rabin_primality(10010111, filename, primes, 100))
