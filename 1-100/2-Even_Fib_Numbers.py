@@ -31,9 +31,9 @@ def build_fib(list, dest, limit):
 even_fibs = build_fib(fib_start, fib_e, 4000000)
 
 #find sum
-k = 0
+sum = 0
 for j in even_fibs:
-    k += j
+    sum += j
 
-print("k =", k)
+print("Sum even Fibs =", sum)
 
