@@ -47,15 +47,6 @@ def LOL_builder(string):
 Test, Test_ = LOL_builder(test)
 Problem, Problem_ = LOL_builder(problem)
 
-# useful definitions
-def list_swapper(list1, list2):
-  temp = list2
-  list2 = list1
-  list1 = temp
-  return list1, list2
-
-# print(list_swapper(Problem[0], Problem[1]))
-
 # determines the numbers that are sufficiently large
 # didnt use
 def is_below(list1, list2, element_L2):
@@ -93,110 +84,6 @@ def Test_prog1(Test_):
 print(Test_prog1(Test_))
 print(Test_prog1(Problem_))
 
-
-
-def pathfinder(list1, list2):
-    L1, L2 = len(list1), len(list2)
-    if L2 > L1:# ensure len(l1) is > len(l2)
-        list1, list2 = list_swapper(L1, L2)
-        L1, L2 = len(list1), len(list2)
-    paths = []
-    if len(list1) + len(list2) >= 3:
-      l1 = energy_pack(list1)
-      l2 = energy_pack(list2)
-      print(l1)
-      ListA = []
-      
-      for element in l1:
-          temp = []
-          a, b, c = is_next(list1, list2, element)
-          print(a, b)
-          if a in l1:
-            if b or c in l2:
-              temp.append(a)
-              if c not in l2:
-                temp.append(b)
-              if b not in l2:
-                temp.append(c)
-            ListA.append(temp)
-            if c in l2:
-              temp.append(a)
-              temp.append(c)
-              break
-          ListA.append(temp)
-
-
-    return f"Path1_2 = {ListA}"
-
-def energy_pack(List):
-    biggest_nums = []
-    row = List
-    row_num = len(row)
-    st_dev = statistics.pstdev(row)
-    avg = sum(row)/len(row)
-    Max = max(row)
-    for element in row:
-        if element > Max - 1.75*st_dev:
-            biggest_nums.append(element)
-    return biggest_nums
-
-# given two lists, finds the largest list, 
-# find the biggest sum that is adjacent,
-# remember the path(s)
-# didnt use
-def is_next(list1, list2, element_L1):
-    L1, L2 = len(list1), len(list2)
-    index1 = list1.index(element_L1)
-    # print(f"index1: {index1}, {L1}, {L2}")
-    values = []
-    # middle case i.e. maps to two options, below and to the right
-    if index1 < L2:
-      index_1 = index1
-      if index1 > 0:
-        index_2 = index1 - 1
-        tup_2 = list1[index1], list2[index_2]
-        values.append(tup_2)
-        tup_1 = list1[index1], list2[index_1]
-        values.append(tup_1)
-      if index1 == 0:
-        tup_1 = list1[index1], list2[index_1]
-        values.append(tup_1)
-      
-    # left case, maps to one below
-    elif index1 == 0:
-      index_1 = index1
-      tup_1 = [list1[index1], list2[index_1]]
-      values.append(tup_1)
-    # right case, maps to the left
-    elif index1 >= L2 - 1:
-      index_1 = index1 - 1
-      index_2 = index1
-      tup_1 = list1[index1], list2[index_1]
-      values.append(tup_1)
-      if list2[index_1] != list2[-1]:
-        tup_2 = list1[index1], list2[-1]
-        values.append(tup_2)
-      
-
-    # print(f"Index1 = {index1}, {list1[index1]}, Index2 = {index2}, {list2[index2]}")
-    return values[:]
-
-# bad
-def brute_force_reverse(List_of_Lists):
-    rev_lists = List_of_Lists[::-1]
-    len_LOL = len(List_of_Lists)
-    count = 1
-    list_of_bigs = []
-    for row in rev_lists:
-        biggest_nums = []
-        row_num = len(row)
-        st_dev = statistics.pstdev(row)
-        avg = sum(row)/len(row)
-        Max = max(row)
-        for element in row:
-          if element > Max - 1.5*st_dev:
-            biggest_nums.append(element)
-        list_of_bigs.append(biggest_nums)
     
 
           
