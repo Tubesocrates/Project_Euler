@@ -7,73 +7,13 @@ adjacent numbers on the row below, the maximum total from top to bottom is 23.
 That is, 3 + 7 + 4 + 9 = 23.
 Find the maximum total from top to bottom of the text file in test_files:
 """
+
+
 from pathlib import Path
 import math, statistics, numpy as np
 
 problem = Path("text_files/p067_triangle.txt").read_text()
 problem = problem.replace("\n", ", ")
-# print(f"{problem}")
-test = "3, 7 4, 2 4 6, 8 5 9 3"
-# make the string into a List of Lists
-def LOL_builder(string):
-  A = string.split(", ")
-  B = []
-  for string in A:
-    List = string.split(" ")
-    b = []
-    for i in List:
-      if i != '':
-        b.append(int(i))
-    if len(b) > 0:
-      B.append(b)
-  B_ = B[::-1]
-  return B, B_
-# build the lists
-Test, Test_ = LOL_builder(test)
-Problem, Problem_ = LOL_builder(problem)
-
-# useful definitions
-def list_swapper(list1, list2):
-  temp = list2
-  list2 = list1
-  list1 = temp
-  return list1, list2
-
-# # Problem_.pop(0)
-# print(list_swapper(Problem[-1], Problem[1]))
-
-# determines the largest sum of the two numbers below each node
-def is_below(list1, list2, element_L2):
-  L1, L2 = len(list1), len(list2)
-  # we are picking L1 being the "bottom row" and L2 being the one above it
-  index2 = list2.index(element_L2)
-  # middle case i.e. maps to two options, the node right below and to the right
-  index_1 = index2
-  index_2 = index2 + 1
-  sum_1 = list2[index2] + list1[index_1]
-  sum_2 = list2[index2] + list1[index_2]
-
-  return max(sum_1, sum_2)
-
-# for x in Test_:
-#   print(x)
-
-#test
-def main(Test_):
-  i = 0
-  z = []
-  while i < len(Test_) - 1:
-    a = []
-    Test_[i], Test_[i+1]
-    for k in Test_[i+1]:
-      b = is_below(Test_[i], Test_[i+1], k)
-      a.append(b)
-    Test_[i+1] = a
-    # print(Test_[i+1])
-    z.append(Test_[i+1])
-    i += 1
-
-  return f"{z[-1]}"
 
 pyramid =     [ [59 ],
                 [73, 41 ],
@@ -175,20 +115,55 @@ pyramid =     [ [59 ],
                 [64, 66, 84, 24, 18, 16, 27, 48, 20, 14, 47, 69, 30, 86, 48, 40, 23, 16, 61, 21, 51, 50, 26, 47, 35, 33, 91, 28, 78, 64, 43, 68, 4, 79, 51, 8, 19, 60, 52, 95, 6, 68, 46, 86, 35, 97, 27, 58, 4, 65, 30, 58, 99, 12, 12, 75, 91, 39, 50, 31, 42, 64, 70, 4, 46, 7, 98, 73, 98, 93, 37, 89, 77, 91, 64, 71, 64, 65, 66, 21, 78, 62, 81, 74, 42, 20, 83, 70, 73, 95, 78, 45, 92, 27, 34, 53, 71, 15 ],
                 [30, 11, 85, 31, 34, 71, 13, 48, 5, 14, 44, 3, 19, 67, 23, 73, 19, 57, 6, 90, 94, 72, 57, 69, 81, 62, 59, 68, 88, 57, 55, 69, 49, 13, 7, 87, 97, 80, 89, 5, 71, 5, 5, 26, 38, 40, 16, 62, 45, 99, 18, 38, 98, 24, 21, 26, 62, 74, 69, 4, 85, 57, 77, 35, 58, 67, 91, 79, 79, 57, 86, 28, 66, 34, 72, 51, 76, 78, 36, 95, 63, 90, 8, 78, 47, 63, 45, 31, 22, 70, 52, 48, 79, 94, 15, 77, 61, 67, 68 ],
                 [23, 33, 44, 81, 80, 92, 93, 75, 94, 88, 23, 61, 39, 76, 22, 3, 28, 94, 32, 6, 49, 65, 41, 34, 18, 23, 8, 47, 62, 60, 3, 63, 33, 13, 80, 52, 31, 54, 73, 43, 70, 26, 16, 69, 57, 87, 83, 31, 3, 93, 70, 81, 47, 95, 77, 44, 29, 68, 39, 51, 56, 59, 63, 7, 25, 70, 7, 77, 43, 53, 64, 3, 94, 42, 95, 39, 18, 1, 66, 21, 16, 97, 20, 50, 90, 16, 70, 10, 95, 69, 29, 6, 25, 61, 41, 26, 15, 59, 63, 35 ] ]
-
 pyramid_ = pyramid[::-1]
 
-# for y in Problem_:
-#   print(y)
-# print(len(Problem_[0]))
-# print(len(Problem_ ))
-# a = "23 33 44 81 80 92 93 75 94 88 23 61 39 76 22 03 28 94 32 06 49 65 41 34 18 23 08 47 62 60 03 63 33 13 80 52 31 54 73 43 70 26 16 69 57 87 83 31 03 93 70 81 47 95 77 44 29 68 39 51 56 59 63 07 25 70 07 77 43 53 64 03 94 42 95 39 18 01 66 21 16 97 20 50 90 16 70 10 95 69 29 06 25 61 41 26 15 59 63 35"
-# a = a.split(" ")
-# print(len(a))
+test = "3, 7 4, 2 4 6, 8 5 9 3"
+# make the string into a List of Lists
+def LOL_builder(string):
+  A = string.split(", ")
+  B = []
+  for string in A:
+    List = string.split(" ")
+    b = []
+    for i in List:
+      if i != '':
+        b.append(int(i))
+    if len(b) > 0:
+      B.append(b)
+  B_ = B[::-1]
+  return B, B_
 
-print(main(Test_))
-print(main(Problem_))
-print(main(pyramid_))
+# build the lists
+Test, Test_ = LOL_builder(test)
+Problem, Problem_ = LOL_builder(problem)
+
+# determines the largest sum of the two numbers below each node
+def is_below(list1, list2, element_L2):
+  L1, L2 = len(list1), len(list2)
+  # we are picking L1 being the "bottom row" and L2 being the one above it
+  index2 = list2.index(element_L2)
+  # middle case i.e. maps to two options, the node right below and to the right
+  index_1 = index2
+  index_2 = index2 + 1
+  sum_1 = list2[index2] + list1[index_1]
+  sum_2 = list2[index2] + list1[index_2]
+  return max(sum_1, sum_2)
+
+#test
+def main(Test_):
+  i = 0
+  z = []
+  while i < len(Test_) - 1:
+    a = []
+    Test_[i], Test_[i+1]
+    for k in Test_[i+1]:
+      b = is_below(Test_[i], Test_[i+1], k)
+      a.append(b)
+    Test_[i+1] = a
+    # print(Test_[i+1])
+    z.append(Test_[i+1])
+    i += 1
+  return f"{z[-1], z[-2]}"
 
 def main2(pyramid):
     # for row in the range of [two up from the bottom (100 - 2), 
@@ -206,6 +181,16 @@ def main2(pyramid):
                 # this node = right + this node
                 pyramid[y][x] = pyramid[y+1][x+1] + pyramid[y][x]
     return pyramid[0][0]
+
+
+# for x in Test_:
+#   print(x)
+
+print(main(Test_))
+print(main(Problem_))
+print(main(pyramid_))
+
+
 print(main2(Test))
 print(main2(Problem))
 print(main2(pyramid))
