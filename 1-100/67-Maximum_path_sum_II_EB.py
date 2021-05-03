@@ -150,22 +150,23 @@ def is_below(list1, list2, element_L2):
   return max(sum_1, sum_2)
 
 #test
-def main(Test_):
+def main(Testy):
+  Test_ = Testy
   i = 0
   z = []
   while i < len(Test_) - 1:
-    a = []
     Test_[i], Test_[i+1]
-    for k in Test_[i+1]:
-      b = is_below(Test_[i], Test_[i+1], k)
-      a.append(b)
-    Test_[i+1] = a
+    for k in range(len(Test_[i+1])):
+      b = is_below(Test_[i], Test_[i+1], Test_[i+1][k])
+      Test_[i+1][k] = b
+    # Test_[i+1] = a
     # print(Test_[i+1])
     z.append(Test_[i+1])
     i += 1
   return f"{z[-1], z[-2]}"
 
-def main2(pyramid):
+def main2(Testy):
+    pyramid = Testy
     # for row in the range of [two up from the bottom (100 - 2), 
     # stop at the last one, going downward]
     for y in range(len(pyramid)-2,-1,-1):
@@ -186,18 +187,17 @@ def main2(pyramid):
 # for x in Test_:
 #   print(x)
 
-print(main(Test_))
-print(main(Problem_))
-print(main(pyramid_))
+print("Main =", main(Test_))
+print("Main =", main(Problem_))
+print("Main =", main(pyramid_))
 
 
-print(main2(Test))
-print(main2(Problem))
-print(main2(pyramid))
+print("Main 2 =", main2(Test))
+print("Main 2 =", main2(Problem))
+print("Main 2 =", main2(pyramid))
 
           
 
-        
         
         
 
