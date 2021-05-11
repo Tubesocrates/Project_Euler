@@ -251,10 +251,12 @@ while len(NAMS) > 2:
 B = [NAMS[0], NAMS[1]]
 ANZZZ = sum(B)
 
-print("ANZZZ, countz", ANZZZ, countz)
+print("ANZZZ, countz =", ANZZZ, countz)
 
 print("SUM", sum(nums_int))
 
+
+# fix
 def iterative_summer(nums):
     counter = 0
     while len(nums) > 1:
@@ -291,5 +293,5 @@ def iterative_summer(nums):
 
 print(iterative_summer(nums))
 # print(iterative_summer(nums)[0] - Num_1)
-print(len(nums))
+# print(len(nums))
 
